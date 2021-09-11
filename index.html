@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Learn alphabet</title>
+	<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi&display=swap" rel="stylesheet">
+	<style type="text/css">
+		#box{
+			width: 1000px;
+			margin:10px auto;
+			padding:0px;
+			text-align: center;
+			border: 1px solid #ddd;
+
+			
+		}
+		h1{
+			font-size: 300px;
+			text-align: center;
+			margin:0px;
+			padding:0px;
+		}
+		
+		button{
+			border: 0;
+			background:#eee;
+			width: 100%;
+			padding:5px;
+			cursor: pointer;
+		}
+		button:hover{
+			background:#ddd;
+		}
+		body{
+			text-align: center;
+		}
+
+	</style>
+</head>
+<body>
+	<audio id="player"></audio>
+	<p><a href="#english" onclick="chooseLanguage('en')">English</a> | <a href="#arabic" onclick="chooseLanguage('ar')">Arabic</a></p>
+	<p><a href="#auto" onclick="auto()">Auto</a> | <a href="#auto" onclick="stop()">Stop</a></p>
+	<div id="box">
+
+		<table border="0">
+			<tr >
+				<td width="500" bgcolor="#eee">
+					<h1 id="text"></h1>
+						<button id="btn" onclick="next()">
+							<img src="image/button.png" width="100">
+						</button>
+				</td>
+				<td width="500">
+					<img id="image" src="image/play-green.svg" width="400">
+				</td >
+			</tr>
+		</table>
+	</div>
+	<script type="text/javascript">
+		// var letters=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+		var arabic=['ا','ب','ت','ث','ج','ح','خ','د','ذ','ر','ز','س','ش','ص','ض','ط','ظ','ع','غ','ف','ق','ك','ل','م','ن','و','ه','ء','ى'];
+		var english = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+		
+		var i = 0;
+		var source = 'arabic/';
+		var letters= arabic;
+		var length = arabic.length;
+		var off;
+		var	btn = document.getElementById('btn');
+			btn.style.padding = '200px';
+		 
+		var player = document.getElementById('player'); 
+        var img = document.getElementById('image');
+         
+		function chooseLanguage(lang){
+		    if (lang=='en') {
+		    	i=0;
+		    	letters = english;
+		    	length = english.length;
+		    	source = 'english/';
+		    	
+		    }
+		    if (lang=='ar') {
+		    	i=0;
+		    	length = arabic.length;
+		    	letters = arabic;
+		    	source = 'arabic/';
+		    	img.src='';
+		    } 	
+		}            
+		function next(){
+			
+         	if (i<length) {
+     			var text = document.getElementById('text');
+         	    img.src='image/'+source+i+'.png';
+         	    text.innerHTML=letters[i];
+         	    i++;
+         	    player.src = source+i+'.mp3';
+         	    player.play();
+         		btn.style.padding = '10px';
+         	}
+         	else{
+         		i=0;
+         	}
+		}
+
+		function auto() {
+			off = setInterval(function(){
+         		next();	
+         	},2000);
+		}
+		function stop() {
+			clearInterval(off);
+		}
+	 </script>
+</body>
+</html>
